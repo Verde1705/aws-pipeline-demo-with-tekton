@@ -163,8 +163,8 @@ helm install -n kube-system aws-load-balancer-controller eks/aws-load-balancer-c
 ###########################
 
 # Install Tekton Pipelines
-echo "[INFO] $(date +"%T") Deploy Tekton Pipelines [${TEKTON_PIPELINE_VERSION}]..."
-kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/previous/${TEKTON_PIPELINE_VERSION}/release.yaml
+echo "[INFO] $(date +"%T") Deploy Latest Version of Tekton Pipelines..."
+kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml
 
 # Install Tekton Triggers
 echo "[INFO] $(date +"%T") Deploy Tekton Triggers [${TEKTON_TRIGGERS_VERSION}]..."
