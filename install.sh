@@ -7,12 +7,12 @@ export TEKTON_TRIGGERS_VERSION="v0.14.2"
 export TEKTON_DASHBOARD_VERSION="v0.18.1"
 export CHARTMUSEUM_VERSION="3.1.0"
 export AWS_LB_CONTROLLER_VERSION="1.2.3"
-export AWS_EBS_CSI_DRIVER_VERSION="0.9.4"
+export AWS_EBS_CSI_DRIVER_VERSION="1.6"
 export ARGOCD_VERSION="v2.0.4"
-export EKS_VERSION="1.18"
+export EKS_VERSION="1.22"
 
 # Check for prerequisites
-for tool in aws kubectl eksctl aws-iam-authenticator kubectl helm jq envsubst base64
+for tool in aws kubectl eksctl kubectl helm jq envsubst base64
 do
     if ! [ -x "$(command -v $tool)" ]; then
         echo "[ERROR] $(date +"%T") $tool is not installed. Please install $tool before running the script again" >&2
@@ -148,8 +148,9 @@ docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/maven-builder:
 
 # Install AWS EBS CSI Driver
 echo "[INFO] $(date +"%T") Deploy aws-ebs-csi-driver [${AWS_EBS_CSI_DRIVER_VERSION}]..."
-helm repo add aws-ebs-csi-driver https://kubernetes-sigs.github.io/aws-ebs-csi-driver > /dev/null
-helm install -n kube-system aws-ebs-csi-driver aws-ebs-csi-driver/aws-ebs-csi-driver --version $AWS_EBS_CSI_DRIVER_VERSION --set enableVolumeResizing=true --set enableVolumeSnapshot=true --set serviceAccount.snapshot.create=false --set serviceAccount.controller.create=false --set serviceAccount.controller.name=ebs-csi-controller-sa --set serviceAccount.snapshot.name=ebs-csi-controller-sa > /dev/null
+curl https://raw.githubusercontent.com/kubernetes-sigs/aws-ebs-csi-driver/master/deploy/kubernetes/secret.yaml > secret.yaml
+kubectl apply -f secret.yaml
+kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-${AWS_EBS_CSI_DRIVER_VERSION}"
 
 # Install AWS Load Balancer Controller
 echo "[INFO] $(date +"%T") Deploy aws-load-balancer-controller [${AWS_LB_CONTROLLER_VERSION}]..."
