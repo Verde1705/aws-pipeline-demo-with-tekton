@@ -18,7 +18,10 @@ spec:
     - http:
         paths:
         - path: /*
+          pathType: Prefix
           backend:
-            serviceName: {{ $svcName }}
-            servicePort: {{ $svcPort }}            
+            service:
+              name: {{ $svcName }}
+              port:
+                number: {{ $svcPort }}            
 {{- end}}

@@ -13,7 +13,10 @@ spec:
   rules:
   - http:
       paths:
-      - backend:
-          serviceName: tekton-dashboard
-          servicePort: 9097
-        path: /*
+        - path: /*
+          pathType: Prefix
+          backend:
+            service:
+              name: tekton-dashboard
+              port: 
+                number: 9097
