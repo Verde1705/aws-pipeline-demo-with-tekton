@@ -156,7 +156,8 @@ kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernete
 echo "[INFO] $(date +"%T") Deploy aws-load-balancer-controller [${AWS_LB_CONTROLLER_VERSION}]..."
 helm repo add eks https://aws.github.io/eks-charts > /dev/null
 kubectl apply -k "github.com/aws/eks-charts/stable/aws-load-balancer-controller//crds?ref=master"
-helm install -n kube-system aws-load-balancer-controller eks/aws-load-balancer-controller --version $AWS_LB_CONTROLLER_VERSION --set clusterName=tekton-pipeline-demo-cluster --set serviceAccount.create=false --set serviceAccount.name=aws-lb-controller-sa > /dev/null 
+# helm install -n kube-system aws-load-balancer-controller eks/aws-load-balancer-controller --version $AWS_LB_CONTROLLER_VERSION --set clusterName=tekton-pipeline-demo-cluster --set serviceAccount.create=false --set serviceAccount.name=aws-lb-controller-sa > /dev/null 
+helm install -n kube-system aws-load-balancer-controller eks/aws-load-balancer-controller --set clusterName=tekton-pipeline-demo-cluster --set serviceAccount.create=false --set serviceAccount.name=aws-lb-controller-sa > /dev/null 
 ###########################
 # Install Tekton components
 ###########################
