@@ -13,7 +13,6 @@ Please make sure that the following tools are installed and ready to use:
 - [eksctl](https://eksctl.io/introduction/#installation)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/)
 - [Helm](https://helm.sh/docs/intro/install/)
-- [aws-iam-authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html)
 - [jq](https://stedolan.github.io/jq/download/)
 - [Golang](https://go.dev/dl/)
 - [Docker](https://www.docker.com/products/docker-desktop)

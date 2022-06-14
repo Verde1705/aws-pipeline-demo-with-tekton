@@ -194,6 +194,9 @@ kubectl -n argocd delete svc argocd-server
 
 # INSTALL TEKTON DEMO 
 echo "[INFO] $(date +"%T") Deploy resources related to the demo..."
+kubectl delete validatingwebhookconfigurations.admissionregistration.k8s.io config.webhook.pipeline.tekton.dev
+kubectl delete validatingwebhookconfigurations.admissionregistration.k8s.io validation.webhook.pipeline.tekton.dev
+kubectl delete mutatingwebhookconfigurations.admissionregistration.k8s.io webhook.pipeline.tekton.dev
 cat tekton-pipeline-demo-k8s-artifacts/values.yaml | envsubst | tee $TMP_FILE > /dev/null && mv $TMP_FILE tekton-pipeline-demo-k8s-artifacts/values.yaml
 helm install tekton-pipeline-demo-k8s-artifacts -f tekton-pipeline-demo-k8s-artifacts/values.yaml --generate-name > /dev/null 
 sleep 30
