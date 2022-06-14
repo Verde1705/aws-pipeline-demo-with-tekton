@@ -6,7 +6,7 @@ export TEKTON_PIPELINE_VERSION="v0.26.0"
 export TEKTON_TRIGGERS_VERSION="v0.14.2"
 export TEKTON_DASHBOARD_VERSION="v0.18.1"
 export CHARTMUSEUM_VERSION="3.1.0"
-export AWS_LB_CONTROLLER_VERSION="1.2.3"
+export AWS_LB_CONTROLLER_VERSION="2.4.2"
 export AWS_EBS_CSI_DRIVER_VERSION="1.6"
 export ARGOCD_VERSION="v2.0.4"
 export EKS_VERSION="1.22"
@@ -157,7 +157,6 @@ echo "[INFO] $(date +"%T") Deploy aws-load-balancer-controller [${AWS_LB_CONTROL
 helm repo add eks https://aws.github.io/eks-charts > /dev/null
 kubectl apply -k "github.com/aws/eks-charts/stable/aws-load-balancer-controller//crds?ref=master"
 helm install -n kube-system aws-load-balancer-controller eks/aws-load-balancer-controller --version $AWS_LB_CONTROLLER_VERSION --set clusterName=tekton-pipeline-demo-cluster --set serviceAccount.create=false --set serviceAccount.name=aws-lb-controller-sa > /dev/null 
-
 ###########################
 # Install Tekton components
 ###########################
